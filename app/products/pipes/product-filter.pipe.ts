@@ -1,5 +1,5 @@
 import {PipeTransform, Pipe} from "@angular/core";
-import {IProduct} from "./product";
+import {IProduct} from "../product";
 /**
  * Created by SSMacProHasael on 1/24/17.
  */
