@@ -23,8 +23,10 @@ var ProductListComponent = (function () {
         this.showImage = false;
     }
     ProductListComponent.prototype.ngOnInit = function () {
+        var _this = this;
         console.log('In OnInit');
-        this.products = this._productService.getProducts();
+        this._productService.requestProductList()
+            .subscribe(function (products) { return _this.products = products; }, function (error) { return _this.errorMessage = error; });
     };
     ProductListComponent.prototype.toggleImage = function () {
         this.showImage = !this.showImage;

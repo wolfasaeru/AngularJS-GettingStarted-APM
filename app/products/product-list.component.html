@@ -17,6 +17,10 @@
         </div>
 
         <div class="table-responsive">
+            <div class="row text-center"
+                 *ngIf="!products || !products.length">
+                <span class="has-error">{{errorMessage}}</span>
+            </div>
             <table class="table"
                    *ngIf="products && products.length">
                 <thead>

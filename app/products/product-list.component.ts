@@ -4,6 +4,7 @@
 import {Component, OnInit} from "@angular/core";
 import {IProduct} from "./product";
 import {ProductService} from "./product.service";
+import {error} from "util";
 
 @Component({
     selector: "pm-products",
@@ -19,13 +20,18 @@ export class ProductListComponent implements OnInit {
     showImage: boolean = false;
     filterStr: string; //TWO-WAY BINDING
     products: IProduct[];
+    errorMessage: string;
 
     // DEPENDENCY INJECTION
     constructor (private _productService: ProductService) {}
 
     ngOnInit(): void {
         console.log('In OnInit');
-        this.products = this._productService.getProducts();
+        this._productService.requestProductList()
+            .subscribe(
+                products => this.products = products,
+                error => this.errorMessage = <any>error
+        );
     }
 
     toggleImage(): void {
