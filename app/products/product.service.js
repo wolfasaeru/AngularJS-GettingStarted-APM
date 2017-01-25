@@ -14,6 +14,8 @@ var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
+require("rxjs/add/operator/filter");
+require("rxjs/add/operator/mergeMap");
 /**
  * Created by SSMacProHasael on 1/24/17.
  */
@@ -25,6 +27,14 @@ var ProductService = (function () {
     ProductService.prototype.requestProductList = function () {
         return this._http.get(this._productListUrl)
             .map(function (response) { return response.json(); })
+            .do(function (data) { return console.log("All: ", JSON.stringify(data)); })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.requestProduct = function (id) {
+        return this._http.get(this._productListUrl)
+            .map(function (response) { return response.json(); })
+            .flatMap(function (array, index) { return array; })
+            .filter(function (product) { return product.id == id; })
             .do(function (data) { return console.log("All: ", JSON.stringify(data)); })
             .catch(this.handleError);
     };

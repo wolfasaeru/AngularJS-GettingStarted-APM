@@ -1,6 +1,42 @@
-<div class="panel panel-primary">
+<div class="panel panel-primary" *ngIf="product">
     <div class="panel-heading">
-        {{pageTitle}}
+        {{pageTitle + ': ' + product.name}}
+    </div>
+
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img [src]="product.imageUrl" />
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-3">Name:</div>
+                    <div class="col-md-6">{{product.name}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Code:</div>
+                    <div class="col-md-6">{{product.code | lowercase}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Description:</div>
+                    <div class="col-md-6">{{product.description}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Available since:</div>
+                    <div class="col-md-6">{{product.releaseDate}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Price:</div>
+                    <div class="col-md-6">{{product.price}}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">Rating:</div>
+                    <div class="col-md-6">
+                        <ss-star [rating]="product.rating"></ss-star>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="panel-footer">

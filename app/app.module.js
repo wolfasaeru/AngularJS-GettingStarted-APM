@@ -29,12 +29,24 @@ AppModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             router_1.RouterModule.forRoot([
-                { path: 'products', component: product_list_component_1.ProductListComponent },
-                { path: 'product/:id',
+                {
+                    path: 'products',
+                    component: product_list_component_1.ProductListComponent
+                },
+                {
+                    path: 'product/:id',
                     canActivate: [product_detail_guard_1.ProductDetailGuard],
-                    component: product_detail_component_1.ProductDetailComponent },
-                { path: 'welcome', component: welcome_component_1.WelcomeComponent },
-                { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+                    component: product_detail_component_1.ProductDetailComponent
+                },
+                {
+                    path: 'welcome',
+                    component: welcome_component_1.WelcomeComponent
+                },
+                {
+                    path: '',
+                    redirectTo: 'welcome',
+                    pathMatch: 'full'
+                },
             ])
         ],
         providers: [
