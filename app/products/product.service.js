@@ -22,7 +22,8 @@ require("rxjs/add/operator/mergeMap");
 var ProductService = (function () {
     function ProductService(_http) {
         this._http = _http;
-        this._productListUrl = "api/products/products.json";
+        // private _productListUrl: string = "api/products/products.json";
+        this._productListUrl = "http://127.0.0.1:8000/products/";
     }
     ProductService.prototype.requestProductList = function () {
         return this._http.get(this._productListUrl)

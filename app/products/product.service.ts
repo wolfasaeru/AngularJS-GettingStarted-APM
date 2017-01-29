@@ -13,7 +13,8 @@ import "rxjs/add/operator/mergeMap";
 
 @Injectable()
 export class ProductService {
-    private _productListUrl: string = "api/products/products.json";
+    // private _productListUrl: string = "api/products/products.json";
+    private _productListUrl: string = "http://127.0.0.1:8000/products/";
     constructor(private _http: Http) { }
 
     requestProductList(): Observable<IProduct[]> {
