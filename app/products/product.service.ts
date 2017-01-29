@@ -7,6 +7,7 @@ import "rxjs/add/operator/do";
 import "rxjs/add/operator/catch";
 import "rxjs/add/operator/filter";
 import "rxjs/add/operator/mergeMap";
+import 'rxjs/add/observable/throw';
 /**
  * Created by SSMacProHasael on 1/24/17.
  */
@@ -20,16 +21,22 @@ export class ProductService {
     requestProductList(): Observable<IProduct[]> {
         return this._http.get(this._productListUrl)
             .map((response: Response) => <IProduct[]>response.json())
-            .do(data => console.log("All: ", JSON.stringify(data)))
+            .do(data => console.log("All products: ", JSON.stringify(data)))
             .catch(this.handleError);
     }
 
+    // requestProduct(id: number): Observable<IProduct> {
+    //     return this._http.get(this._productListUrl)
+    //         .map((response: Response) => <IProduct[]>response.json())
+    //         .flatMap((array, index) => array)
+    //         .filter(product => product.id == id)
+    //         .do(data => console.log("All: ", JSON.stringify(data)))
+    //         .catch(this.handleError);
+    // }
     requestProduct(id: number): Observable<IProduct> {
-        return this._http.get(this._productListUrl)
-            .map((response: Response) => <IProduct[]>response.json())
-            .flatMap((array, index) => array)
-            .filter(product => product.id == id)
-            .do(data => console.log("All: ", JSON.stringify(data)))
+        return this._http.get(this._productListUrl + id + '/')
+            .map((response: Response) => <IProduct>response.json())
+            .do(data => console.log("Product: ", JSON.stringify(data)))
             .catch(this.handleError);
     }
 
@@ -90,6 +97,6 @@ export class ProductService {
 
     private handleError(error: Response) {
         console.log(error);
-        return Observable.throw(error.json().error || 'Server error');
+        return Observable.throw(error.json().detail || 'Unexpected');
     }
 }

@@ -20,16 +20,23 @@ var ProductDetailComponent = (function () {
         this._router = _router;
         this._productService = _productService;
         this.pageTitle = "Product Detail";
+        this.productName = "";
     }
     ProductDetailComponent.prototype.ngOnInit = function () {
-        var _this = this;
         var id = +this._route.snapshot.params['id'];
         this.pageTitle += ": " + id;
-        this._productService.requestProduct(id)
-            .subscribe(function (product) { return _this.product = product; }, function (error) { return _this.errorMessage = error; });
+        this.getProduct(id);
     };
     ProductDetailComponent.prototype.onBack = function () {
         this._router.navigate(['/products']);
+    };
+    ProductDetailComponent.prototype.getProduct = function (id) {
+        var _this = this;
+        this._productService.requestProduct(id)
+            .subscribe(function (product) {
+            _this.product = product;
+            _this.productName = ": " + product.name;
+        }, function (error) { return _this.errorMessage = error; });
     };
     return ProductDetailComponent;
 }());

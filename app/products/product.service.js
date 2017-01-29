@@ -16,6 +16,7 @@ require("rxjs/add/operator/do");
 require("rxjs/add/operator/catch");
 require("rxjs/add/operator/filter");
 require("rxjs/add/operator/mergeMap");
+require("rxjs/add/observable/throw");
 /**
  * Created by SSMacProHasael on 1/24/17.
  */
@@ -28,15 +29,21 @@ var ProductService = (function () {
     ProductService.prototype.requestProductList = function () {
         return this._http.get(this._productListUrl)
             .map(function (response) { return response.json(); })
-            .do(function (data) { return console.log("All: ", JSON.stringify(data)); })
+            .do(function (data) { return console.log("All products: ", JSON.stringify(data)); })
             .catch(this.handleError);
     };
+    // requestProduct(id: number): Observable<IProduct> {
+    //     return this._http.get(this._productListUrl)
+    //         .map((response: Response) => <IProduct[]>response.json())
+    //         .flatMap((array, index) => array)
+    //         .filter(product => product.id == id)
+    //         .do(data => console.log("All: ", JSON.stringify(data)))
+    //         .catch(this.handleError);
+    // }
     ProductService.prototype.requestProduct = function (id) {
-        return this._http.get(this._productListUrl)
+        return this._http.get(this._productListUrl + id + '/')
             .map(function (response) { return response.json(); })
-            .flatMap(function (array, index) { return array; })
-            .filter(function (product) { return product.id == id; })
-            .do(function (data) { return console.log("All: ", JSON.stringify(data)); })
+            .do(function (data) { return console.log("Product: ", JSON.stringify(data)); })
             .catch(this.handleError);
     };
     ProductService.prototype.getProducts = function () {
@@ -95,7 +102,7 @@ var ProductService = (function () {
     };
     ProductService.prototype.handleError = function (error) {
         console.log(error);
-        return Observable_1.Observable.throw(error.json().error || 'Server error');
+        return Observable_1.Observable.throw(error.json().detail || 'Unexpected');
     };
     return ProductService;
 }());

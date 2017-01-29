@@ -14,6 +14,7 @@ import {ProductService} from "./product.service";
 
 export class ProductDetailComponent implements OnInit {
     pageTitle: string = "Product Detail";
+    productName: string = "";
     product: IProduct;
     errorMessage: string;
 
@@ -24,14 +25,22 @@ export class ProductDetailComponent implements OnInit {
     ngOnInit(): void {
         let id: number = +this._route.snapshot.params['id'];
         this.pageTitle += `: ${id}`;
-        this._productService.requestProduct(id)
-            .subscribe(
-                product => this.product = product,
-                error => this.errorMessage = <any>error
-            );
+
+        this.getProduct(id);
     }
 
     onBack(): void {
         this._router.navigate(['/products']);
+    }
+
+    getProduct(id: number): void {
+        this._productService.requestProduct(id)
+            .subscribe(
+                product => {
+                    this.product = product;
+                    this.productName = ": " + product.name;
+                },
+                error => this.errorMessage = <any>error
+            );
     }
 }

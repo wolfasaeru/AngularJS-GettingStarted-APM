@@ -1,10 +1,16 @@
-<div class="panel panel-primary" *ngIf="product">
+<div class="panel panel-primary">
     <div class="panel-heading">
-        {{pageTitle + ': ' + product.name}}
+        {{pageTitle + productName}}
     </div>
 
     <div class="panel-body">
-        <div class="row">
+        <div class="row alert alert-danger text-center"
+             *ngIf="!product">
+            <strong>Server error! </strong>{{errorMessage}}
+        </div>
+
+        <div class="row"
+             *ngIf="product">
             <div class="col-md-6 text-center">
                 <img [src]="product.imageUrl" />
             </div>
