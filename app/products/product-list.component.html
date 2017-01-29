@@ -17,7 +17,7 @@
         </div>
 
         <div class="row alert alert-danger text-center"
-             *ngIf="!products || !products.length">
+             *ngIf="errorMessage">
             <strong>Server error! </strong>{{errorMessage}}
         </div>
 
